@@ -55,6 +55,11 @@ if (config.env === 'development') {
 // ─── Static Files ───────────────────────────────────────────
 app.use(express.static('public'));
 
+// ─── Health Check ───────────────────────────────────────────
+app.get('/', (_req, res) => {
+  res.status(200).json({ status: 'ok', message: 'MessFlow API is running' });
+});
+
 // ─── API Routes ─────────────────────────────────────────────
 app.use('/api', routes);
 

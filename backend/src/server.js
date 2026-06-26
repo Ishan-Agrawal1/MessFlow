@@ -59,3 +59,4 @@ process.on('uncaughtException', (err) => {
 });
 
 startServer();
+// Trigger restart for admin credentials update
