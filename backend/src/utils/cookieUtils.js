@@ -7,8 +7,7 @@ import { COOKIE_NAMES } from '../constants/index.js';
 const getCookieOptions = (maxAge) => ({
   httpOnly: true,
   secure: config.env === 'production',
-  sameSite: config.env === 'production' ? 'strict' : 'lax',
-  domain: config.env === 'production' ? config.cookieDomain : undefined,
+  sameSite: config.env === 'production' ? 'none' : 'lax',
   maxAge,
   path: '/',
 });
@@ -43,7 +42,7 @@ export const clearTokenCookies = (res) => {
   const clearOptions = {
     httpOnly: true,
     secure: config.env === 'production',
-    sameSite: config.env === 'production' ? 'strict' : 'lax',
+    sameSite: config.env === 'production' ? 'none' : 'lax',
     path: '/',
   };
 
