@@ -56,7 +56,7 @@ export default function Defaulters() {
                 <TableBody>
                   {defaulters.map((d, idx) => (
                     <TableRow key={idx} className="hover:bg-muted/50 transition-colors">
-                      <TableCell className="font-semibold text-indigo-600">{d.studentId}</TableCell>
+                      <TableCell className="font-semibold text-blue-600">{d.studentId}</TableCell>
                       <TableCell className="font-medium">{d.studentName}</TableCell>
                       <TableCell>{d.batch}</TableCell>
                       <TableCell>{d.monthName} {d.year}</TableCell>

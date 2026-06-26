@@ -3,6 +3,7 @@ import userRepository from '../repositories/user.repository.js';
 import feeCycleRepository from '../repositories/feeCycle.repository.js';
 import studentDueRepository from '../repositories/studentDue.repository.js';
 import paymentRepository from '../repositories/payment.repository.js';
+import emailService from './email.service.js';
 import AppError from '../utils/AppError.js';
 import { USER_ROLES, DUE_STATUS, MONTH_NAMES } from '../constants/index.js';
 
@@ -268,10 +269,36 @@ class AdminService {
 
     // Bulk insert (skips duplicates)
     const created = await studentDueRepository.bulkCreate(duesData);
+    const duesGenerated = Array.isArray(created) ? created.length : 0;
+
+    // ─── Send email notifications (fire-and-forget) ───────────
+    if (duesGenerated > 0) {
+      const monthName = MONTH_NAMES[feeCycle.month - 1];
+      const formattedDueDate = new Date(feeCycle.dueDate).toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      });
+
+      // Fire and forget — don't block the API response
+      emailService
+        .sendBulkDueCreatedEmails(
+          activeStudents.map((s) => ({ email: s.email, name: s.name })),
+          {
+            monthName,
+            year: feeCycle.year,
+            amount: feeCycle.amount,
+            dueDate: formattedDueDate,
+          }
+        )
+        .catch((err) => {
+          console.error('❌ Error sending bulk due notification emails:', err.message);
+        });
+    }
 
     return {
       totalStudents: activeStudents.length,
-      duesGenerated: Array.isArray(created) ? created.length : 0,
+      duesGenerated,
       feeCycle,
     };
   }

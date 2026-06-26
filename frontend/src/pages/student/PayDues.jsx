@@ -12,6 +12,11 @@ import { EmptyState } from '@/components/common/EmptyState';
 import { ShieldCheck, CreditCard } from 'lucide-react';
 import { toast } from 'sonner';
 
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
 // Helper to load Razorpay script
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -52,21 +57,21 @@ export default function PayDues() {
         throw new Error(orderResponse.message);
       }
 
-      const { order, keyId } = orderResponse.data;
+      const { orderId, amount, currency, keyId } = orderResponse.data;
 
       // 3. Initialize Razorpay
       const options = {
         key: keyId, // from backend .env
-        amount: order.amount,
-        currency: order.currency,
-        name: 'Mess Portal',
-        description: `Fee Payment for ${response.data.currentDue.feeCycle.month} ${response.data.currentDue.feeCycle.year}`,
-        order_id: order.id,
+        amount: amount,
+        currency: currency,
+        name: 'Madhav Namkeen',
+        description: `Fee Payment for ${MONTH_NAMES[(response.data.currentDue.feeCycle.month || 1) - 1]} ${response.data.currentDue.feeCycle.year}`,
+        order_id: orderId,
         handler: async function (response) {
           // 4. Verify payment on backend
           try {
             toast.loading('Verifying payment...', { id: 'verify-payment' });
-            
+
             const verifyRes = await paymentApi.verifyPayment({
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
@@ -75,12 +80,12 @@ export default function PayDues() {
 
             if (verifyRes.success) {
               toast.success('Payment successful!', { id: 'verify-payment' });
-              navigate('/student/payment-success', { 
-                state: { 
+              navigate('/student/payment-success', {
+                state: {
                   paymentId: verifyRes.data.payment.transactionId,
                   amount: verifyRes.data.payment.amount,
                   receiptNo: verifyRes.data.payment.receiptNumber
-                } 
+                }
               });
             } else {
               throw new Error(verifyRes.message);
@@ -94,7 +99,7 @@ export default function PayDues() {
           email: user.email,
         },
         theme: {
-          color: '#4f46e5', // indigo primary color
+          color: '#2563EB', // primary blue color
         },
       };
 
@@ -116,10 +121,10 @@ export default function PayDues() {
   if (!currentDue || paymentStatus === 'PAID') {
     return (
       <div className="mt-10 max-w-xl mx-auto">
-        <EmptyState 
-          icon={ShieldCheck} 
-          title="All Caught Up!" 
-          description="You have no pending dues for the current month." 
+        <EmptyState
+          icon={ShieldCheck}
+          title="All Caught Up!"
+          description="You have no pending dues for the current month."
           className="border-green-200 bg-green-50/50"
         />
       </div>
@@ -133,17 +138,17 @@ export default function PayDues() {
         <p className="text-muted-foreground">Complete your payment securely via Razorpay.</p>
       </div>
 
-      <Card className="border-0 shadow-lg overflow-hidden" style={{ borderTop: '4px solid hsl(243, 75%, 59%)' }}>
+      <Card className="border-0 shadow-lg overflow-hidden" style={{ borderTop: '4px solid #2563EB' }}>
         <CardHeader className="bg-muted/30 border-b pb-6">
           <CardTitle className="text-xl">Payment Details</CardTitle>
           <CardDescription>
-            Fee Cycle: <span className="font-semibold text-foreground">{currentDue.feeCycle.month} {currentDue.feeCycle.year}</span>
+            Fee Cycle: <span className="font-semibold text-foreground">{MONTH_NAMES[(currentDue.feeCycle.month || 1) - 1]} {currentDue.feeCycle.year}</span>
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-6 space-y-4">
           <div className="flex justify-between items-center py-2 border-b">
             <span className="text-muted-foreground">Base Monthly Fee</span>
-            <span className="font-medium">₹{user.batch === 2024 ? 2400 : 2500}</span> {/* Simplified UI representation, actual amount from currentDue */}
+            <span className="font-medium">₹{currentDue.amount}</span> {/* Simplified UI representation, actual amount from currentDue */}
           </div>
           <div className="flex justify-between items-center py-2 border-b">
             <span className="text-muted-foreground">Late Fines</span>
@@ -151,13 +156,13 @@ export default function PayDues() {
           </div>
           <div className="flex justify-between items-center py-4">
             <span className="text-lg font-bold">Total Amount to Pay</span>
-            <span className="text-3xl font-black bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">₹{currentDue.amount}</span>
+            <span className="text-3xl font-black bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">₹{currentDue.amount}</span>
           </div>
         </CardContent>
         <CardFooter className="flex-col gap-4 bg-muted/20 border-t pt-6">
-          <Button 
-            className="w-full h-14 text-lg bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25" 
-            onClick={handlePayment} 
+          <Button
+            className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg shadow-blue-500/25"
+            onClick={handlePayment}
             disabled={isProcessing}
           >
             {isProcessing ? (

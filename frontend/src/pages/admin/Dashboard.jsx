@@ -30,17 +30,15 @@ export default function AdminDashboard() {
       value: totalStudents || 0,
       subtitle: `${activeStudents || 0} active currently`,
       icon: Users,
-      gradient: 'from-indigo-500 to-blue-600',
       bgClass: 'kpi-blue',
-      iconBg: 'bg-indigo-100',
-      iconColor: 'text-indigo-600',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
     },
     {
       title: 'Paid Students',
       value: paidStudents || 0,
       subtitle: 'For current active cycle',
       icon: CheckCircle,
-      gradient: 'from-emerald-500 to-teal-600',
       bgClass: 'kpi-green',
       iconBg: 'bg-emerald-100',
       iconColor: 'text-emerald-600',
@@ -50,7 +48,6 @@ export default function AdminDashboard() {
       value: defaulters || 0,
       subtitle: 'Pending payments',
       icon: AlertTriangle,
-      gradient: 'from-red-500 to-rose-600',
       bgClass: 'kpi-red',
       iconBg: 'bg-red-100',
       iconColor: 'text-red-600',
@@ -60,17 +57,16 @@ export default function AdminDashboard() {
       value: `₹${collectedRevenue || 0}`,
       subtitle: <span>Pending: <span className="text-red-500 font-semibold">₹{pendingRevenue || 0}</span></span>,
       icon: IndianRupee,
-      gradient: 'from-violet-500 to-purple-600',
       bgClass: 'kpi-purple',
-      iconBg: 'bg-violet-100',
-      iconColor: 'text-violet-600',
+      iconBg: 'bg-sky-100',
+      iconColor: 'text-sky-600',
     },
   ];
 
   return (
     <div className="space-y-6">
       {/* Welcome Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-6 text-white shadow-xl">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-sky-600 p-6 text-white shadow-xl">
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
         <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
         <div className="relative z-10">
@@ -104,7 +100,7 @@ export default function AdminDashboard() {
       <Card className="border-0 shadow-md">
         <CardHeader>
           <CardTitle className="text-xl flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-md shadow-indigo-500/20">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-sky-500 shadow-md shadow-blue-500/20">
               <TrendingUp className="h-5 w-5 text-white" />
             </div>
             Monthly Revenue Breakdown
@@ -114,11 +110,11 @@ export default function AdminDashboard() {
           {monthlyRevenue && monthlyRevenue.length > 0 ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {monthlyRevenue.map((month, idx) => (
-                <div key={idx} className="flex flex-col border rounded-xl p-4 bg-gradient-to-br from-indigo-50/50 to-violet-50/50 hover:shadow-md transition-all duration-300">
+                <div key={idx} className="flex flex-col border rounded-xl p-4 bg-gradient-to-br from-blue-50/50 to-sky-50/50 hover:shadow-md transition-all duration-300">
                   <span className="text-sm font-medium text-muted-foreground mb-2">
                     {month._id.month} {month._id.year}
                   </span>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                  <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
                     ₹{month.totalAmount}
                   </span>
                 </div>

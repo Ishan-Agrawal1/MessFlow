@@ -6,9 +6,18 @@ import { Loader } from '@/components/common/Loader';
 // Layouts
 import StudentLayout from '@/layouts/StudentLayout';
 import AdminLayout from '@/layouts/AdminLayout';
+import PublicLayout from '@/layouts/PublicLayout';
 
 // Auth
 const Login = lazy(() => import('@/pages/auth/Login'));
+const AdminLogin = lazy(() => import('@/pages/auth/AdminLogin'));
+
+// Public Pages
+const ContactUs = lazy(() => import('@/pages/public/ContactUs'));
+const AboutUs = lazy(() => import('@/pages/public/AboutUs'));
+const PrivacyPolicy = lazy(() => import('@/pages/public/PrivacyPolicy'));
+const TermsConditions = lazy(() => import('@/pages/public/TermsConditions'));
+const RefundPolicy = lazy(() => import('@/pages/public/RefundPolicy'));
 
 // Student Pages
 const StudentDashboard = lazy(() => import('@/pages/student/Dashboard'));
@@ -16,6 +25,7 @@ const PayDues = lazy(() => import('@/pages/student/PayDues'));
 const PaymentSuccess = lazy(() => import('@/pages/student/PaymentSuccess'));
 const PaymentHistory = lazy(() => import('@/pages/student/PaymentHistory'));
 const StudentProfile = lazy(() => import('@/pages/student/Profile'));
+const ChangePassword = lazy(() => import('@/pages/student/ChangePassword'));
 
 // Admin Pages
 const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
@@ -35,6 +45,16 @@ export function AppRoutes() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        {/* Public Routes */}
+        <Route element={<PublicLayout />}>
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsConditions />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+        </Route>
 
         {/* Student Routes */}
         <Route element={<ProtectedRoute allowedRoles={['student']} />}>
@@ -44,6 +64,7 @@ export function AppRoutes() {
             <Route path="/student/payment-success" element={<PaymentSuccess />} />
             <Route path="/student/history" element={<PaymentHistory />} />
             <Route path="/student/profile" element={<StudentProfile />} />
+            <Route path="/student/change-password" element={<ChangePassword />} />
           </Route>
         </Route>
 

@@ -42,7 +42,7 @@ export default function Students() {
           <h1 className="text-3xl font-bold tracking-tight">Student Management</h1>
           <p className="text-muted-foreground">Manage all registered students.</p>
         </div>
-        <Button asChild className="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25">
+        <Button asChild className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg shadow-blue-500/25">
           <Link to="/admin/students/register">
             <Plus className="mr-2 h-4 w-4" /> Register Student
           </Link>
@@ -94,7 +94,7 @@ export default function Students() {
                 <TableBody>
                   {students.map((student) => (
                     <TableRow key={student._id} className="hover:bg-muted/50 transition-colors">
-                      <TableCell className="font-semibold text-indigo-600">{student.studentId}</TableCell>
+                      <TableCell className="font-semibold text-blue-600">{student.studentId}</TableCell>
                       <TableCell className="font-medium">{student.name}</TableCell>
                       <TableCell className="text-muted-foreground">{student.email}</TableCell>
                       <TableCell>{student.batch}</TableCell>

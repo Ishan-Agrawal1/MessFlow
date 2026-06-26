@@ -19,6 +19,8 @@ import { authApi } from '@/api/authApi';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
+import GlobalFooter from '@/components/common/GlobalFooter';
+import logo from '@/assets/logo.png';
 
 export default function AdminLayout() {
   const { user, logout } = useAuthStore();
@@ -58,8 +60,9 @@ export default function AdminLayout() {
         )}
       >
         <div className="flex h-16 shrink-0 items-center justify-between border-b border-white/10 px-6">
-          <span className="text-lg font-bold tracking-tight">
-            <span className="text-white/90">🍽️</span> Mess Admin
+          <span className="text-lg font-bold tracking-tight flex items-center gap-2">
+            <img src={logo} alt="Madhav Namkeen" className="h-8 w-auto brightness-0 invert" />
+            <span className="text-white">Admin</span>
           </span>
           <button onClick={() => setIsSidebarOpen(false)} className="lg:hidden text-white/70 hover:text-white">
             <X className="h-5 w-5" />
@@ -122,7 +125,7 @@ export default function AdminLayout() {
               <Bell className="h-5 w-5" />
             </button>
             <div className="flex items-center gap-2 text-sm">
-              <div className="h-9 w-9 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/20">
+              <div className="h-9 w-9 rounded-full bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20">
                 {user?.name?.charAt(0)?.toUpperCase() || 'A'}
               </div>
               <span className="hidden md:inline font-medium">{user?.name || 'Admin'}</span>
@@ -133,6 +136,10 @@ export default function AdminLayout() {
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
           <Outlet />
+          {/* Global Footer */}
+          <div className="mt-8">
+            <GlobalFooter />
+          </div>
         </main>
       </div>
       

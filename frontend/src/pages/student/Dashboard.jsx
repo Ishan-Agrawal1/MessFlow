@@ -9,9 +9,14 @@ import { CreditCard, CalendarDays, Bell, AlertCircle, CheckCircle2, History, Tre
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
 export default function StudentDashboard() {
   const { user } = useAuthStore();
-  
+
   const { data: response, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['studentDashboard'],
     queryFn: dashboardApi.getStudentDashboard,
@@ -25,7 +30,7 @@ export default function StudentDashboard() {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-6 text-white shadow-xl">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-sky-600 p-6 text-white shadow-xl">
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
         <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
         <div className="relative z-10 flex items-center gap-4">
@@ -44,7 +49,7 @@ export default function StudentDashboard() {
         <CardHeader className="pb-2">
           <CardTitle className="text-lg font-medium flex items-center justify-between">
             <span className="flex items-center gap-2">
-              <CreditCard className="h-5 w-5 text-indigo-500" />
+              <CreditCard className="h-5 w-5 text-blue-600" />
               Current Due Status
             </span>
             {paymentStatus === 'PAID' ? (
@@ -66,12 +71,14 @@ export default function StudentDashboard() {
           {currentDue ? (
             <div className="space-y-4">
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">₹{currentDue.amount}</span>
-                <span className="text-sm text-muted-foreground font-medium">due by {format(new Date(currentDue.feeCycle.dueDate), 'MMM dd, yyyy')}</span>
+                <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">₹{currentDue.amount}</span>
+                <span className="text-sm text-muted-foreground font-medium">
+                  {MONTH_NAMES[(currentDue.feeCycle.month || 1) - 1]} {currentDue.feeCycle.year} — due by {format(new Date(currentDue.feeCycle.dueDate), 'MMM dd, yyyy')}
+                </span>
               </div>
-              
+
               {paymentStatus !== 'PAID' && (
-                <Button asChild className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25" size="lg">
+                <Button asChild className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg shadow-blue-500/25" size="lg">
                   <Link to="/student/pay">
                     <CreditCard className="mr-2 h-4 w-4" />
                     Pay Now
@@ -122,8 +129,8 @@ export default function StudentDashboard() {
         <Card className="shadow-md border-0 hover:shadow-lg transition-shadow duration-300">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-100">
-                <History className="h-4 w-4 text-indigo-600" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100">
+                <History className="h-4 w-4 text-blue-600" />
               </div>
               Recent Payments
             </CardTitle>
@@ -134,10 +141,8 @@ export default function StudentDashboard() {
                 {recentPayments.map((payment) => (
                   <div key={payment._id} className="flex justify-between items-center border-b pb-3 last:border-0 last:pb-0">
                     <div>
+
                       <p className="font-medium text-sm">
-                        {payment.feeCycle?.month} {payment.feeCycle?.year}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
                         {format(new Date(payment.createdAt), 'MMM dd, yyyy • hh:mm a')}
                       </p>
                     </div>
@@ -147,7 +152,7 @@ export default function StudentDashboard() {
                     </div>
                   </div>
                 ))}
-                <Button variant="link" asChild className="w-full mt-2 text-indigo-600">
+                <Button variant="link" asChild className="w-full mt-2 text-blue-600">
                   <Link to="/student/history">View all history</Link>
                 </Button>
               </div>

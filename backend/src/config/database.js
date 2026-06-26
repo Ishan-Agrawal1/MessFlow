@@ -8,6 +8,12 @@ const connectDatabase = async () => {
   try {
     const conn = await mongoose.connect(config.mongodbUri, {
       dbName: 'messdb',
+      // Connection pool sized for 1000 concurrent users
+      maxPoolSize: 200,
+      minPoolSize: 20,
+      // Timeouts for resilience under load
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
     });
 
     console.log(`✅ MongoDB connected: ${conn.connection.host}`);

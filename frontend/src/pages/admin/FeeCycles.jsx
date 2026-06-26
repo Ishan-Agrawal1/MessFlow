@@ -95,7 +95,7 @@ export default function FeeCycles() {
         </div>
         <Button
           onClick={() => setShowCreateModal(true)}
-          className="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25"
+          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg shadow-blue-500/25"
         >
           <Plus className="mr-2 h-4 w-4" /> Create Cycle
         </Button>
@@ -105,7 +105,7 @@ export default function FeeCycles() {
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowCreateModal(false)}>
           <div className="bg-card rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between p-6 border-b bg-gradient-to-r from-indigo-600 to-violet-600 text-white">
+            <div className="flex items-center justify-between p-6 border-b bg-gradient-to-r from-blue-600 to-sky-500 text-white">
               <h2 className="text-lg font-bold">Create Fee Cycle</h2>
               <button onClick={() => setShowCreateModal(false)} className="text-white/70 hover:text-white transition-colors">
                 <X className="h-5 w-5" />
@@ -134,15 +134,18 @@ export default function FeeCycles() {
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <InputField
-                  label="Batch (Optional)"
-                  type="number"
-                  placeholder="e.g. 2024"
-                  value={formData.batch}
-                  onChange={(e) => setFormData({ ...formData, batch: e.target.value })}
-                  min="2000"
-                  max="2100"
-                />
+                <div className="space-y-2">
+                  <InputField
+                    label="Batch (Optional)"
+                    type="number"
+                    placeholder="e.g. 2024"
+                    value={formData.batch}
+                    onChange={(e) => setFormData({ ...formData, batch: e.target.value })}
+                    min="2000"
+                    max="2100"
+                  />
+                  <p className="text-xs text-muted-foreground">Leave empty to create for all students</p>
+                </div>
                 <InputField
                   label="Base Amount (₹)"
                   type="number"
@@ -169,7 +172,7 @@ export default function FeeCycles() {
                 </Button>
                 <Button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700"
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
                   disabled={createFeeCycleMutation.isPending}
                 >
                   {createFeeCycleMutation.isPending ? 'Creating...' : 'Create Cycle'}
@@ -218,7 +221,7 @@ export default function FeeCycles() {
                           </span>
                         )}
                       </TableCell>
-                      <TableCell className="font-semibold text-indigo-600">₹{cycle.amount}</TableCell>
+                      <TableCell className="font-semibold text-blue-600">₹{cycle.amount}</TableCell>
                       <TableCell>{format(new Date(cycle.dueDate), 'MMM dd, yyyy')}</TableCell>
                       <TableCell>
                         <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">
@@ -231,7 +234,7 @@ export default function FeeCycles() {
                           size="sm" 
                           disabled={isGenerating === cycle._id}
                           onClick={() => handleGenerateDues(cycle._id)}
-                          className="hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-300"
+                          className="hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300"
                         >
                           {isGenerating === cycle._id ? (
                             <Loader size="sm" className="mr-2" />

@@ -49,7 +49,7 @@ export const feeCycleSchema = Joi.object({
     'number.min': 'Year must be 2020 or later',
     'any.required': 'Year is required',
   }),
-  batch: Joi.number().integer().min(1000).max(9999).allow(null).default(null).messages({
+  batch: Joi.number().integer().min(1000).max(9999).allow(null, '').default(null).messages({
     'number.min': 'Batch must be a 4-digit number',
     'number.max': 'Batch must be a 4-digit number',
   }),

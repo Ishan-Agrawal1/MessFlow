@@ -93,7 +93,7 @@ export default function Notices() {
         </div>
         <Button
           onClick={() => setShowCreateModal(true)}
-          className="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25"
+          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg shadow-blue-500/25"
         >
           <Plus className="mr-2 h-4 w-4" /> Create Notice
         </Button>
@@ -103,7 +103,7 @@ export default function Notices() {
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowCreateModal(false)}>
           <div className="bg-card rounded-2xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between p-6 border-b bg-gradient-to-r from-indigo-600 to-violet-600 text-white">
+            <div className="flex items-center justify-between p-6 border-b bg-gradient-to-r from-blue-600 to-sky-500 text-white">
               <h2 className="text-lg font-bold">Create Notice</h2>
               <button onClick={() => setShowCreateModal(false)} className="text-white/70 hover:text-white transition-colors">
                 <X className="h-5 w-5" />
@@ -150,7 +150,7 @@ export default function Notices() {
                 </Button>
                 <Button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700"
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
                   disabled={createNoticeMutation.isPending}
                 >
                   {createNoticeMutation.isPending ? 'Creating...' : 'Create Notice'}

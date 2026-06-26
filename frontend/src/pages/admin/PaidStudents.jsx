@@ -57,7 +57,7 @@ export default function PaidStudents() {
                 <TableBody>
                   {paidStudents.map((s, idx) => (
                     <TableRow key={idx} className="hover:bg-muted/50 transition-colors">
-                      <TableCell className="font-semibold text-indigo-600">{s.studentId}</TableCell>
+                      <TableCell className="font-semibold text-blue-600">{s.studentId}</TableCell>
                       <TableCell className="font-medium">{s.studentName}</TableCell>
                       <TableCell>{s.batch}</TableCell>
                       <TableCell className="font-bold text-emerald-600">₹{s.amountPaid}</TableCell>

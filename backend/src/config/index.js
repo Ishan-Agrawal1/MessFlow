@@ -33,6 +33,8 @@ const config = {
   },
 
   cookieDomain: process.env.COOKIE_DOMAIN || 'localhost',
+
+  clientUrl: process.env.CLIENT_URL || process.env.CORS_ORIGIN || 'http://localhost:5173',
 };
 
 /**

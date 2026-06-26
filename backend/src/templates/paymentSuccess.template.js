@@ -24,7 +24,7 @@ export const paymentSuccessTemplate = ({
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment Confirmation</title>
+  <title>Payment Confirmation - Madhav Namkeen</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f4f6f9; padding: 40px 0;">
@@ -82,7 +82,7 @@ export const paymentSuccessTemplate = ({
               </table>
 
               <p style="color: #555555; font-size: 14px; line-height: 1.6; margin: 0 0 8px;">
-                Please retain this email as a record of your payment. Should you have any questions or require further assistance, do not hesitate to reach out to the mess administration.
+                Please retain this email as a record of your payment. Should you have any questions or require further assistance, please feel free to contact the Madhav Namkeen Mess Services team.
               </p>
             </td>
           </tr>
@@ -91,8 +91,9 @@ export const paymentSuccessTemplate = ({
           <tr>
             <td style="background-color: #f8f9fa; padding: 24px 40px; text-align: center; border-top: 1px solid #e8eaed;">
               <p style="color: #999999; font-size: 12px; line-height: 1.6; margin: 0;">
-                This is an automated message from the Mess Management System.<br />
-                Please do not reply to this email.
+                Madhav Namkeen Mess Services<br />
+                For support, please contact us at madhavnamkeen.business@gmail.com<br />
+                This is an automated message, please do not reply to this email.
               </p>
             </td>
           </tr>

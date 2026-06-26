@@ -10,7 +10,7 @@ import { PasswordField } from '@/components/forms/PasswordField';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { toast } from 'sonner';
-import { UtensilsCrossed } from 'lucide-react';
+import logo from '@/assets/logo.png';
 
 const loginSchema = z.object({
   identifier: z.string().min(1, 'Student ID or Email is required'),
@@ -56,18 +56,18 @@ export default function Login() {
     <div className="flex min-h-screen items-center justify-center p-4 login-bg">
       {/* Animated background blobs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute -top-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-sky-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <Card className="w-full max-w-md shadow-2xl border-0 bg-card/80 backdrop-blur-xl relative z-10" style={{ borderTop: '4px solid hsl(var(--primary))' }}>
         <CardHeader className="space-y-3 text-center pb-2">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-lg shadow-indigo-500/25">
-            <UtensilsCrossed className="h-7 w-7 text-white" />
+          <div className="mx-auto flex items-center justify-center">
+            <img src={logo} alt="Madhav Namkeen Logo" className="h-16 w-auto drop-shadow-md" />
           </div>
-          <CardTitle className="text-3xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-            Mess Portal
+          <CardTitle className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
+            Madhav Namkeen
           </CardTitle>
           <CardDescription className="text-base">Sign in with your Student ID and password</CardDescription>
         </CardHeader>
@@ -86,7 +86,7 @@ export default function Login() {
               {...register('password')}
               error={errors.password}
             />
-            <Button type="submit" className="w-full mt-6 h-11 text-base font-semibold bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25 transition-all duration-300" disabled={isLoading}>
+            <Button type="submit" className="w-full mt-6 h-11 text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg shadow-blue-500/25 transition-all duration-300" disabled={isLoading}>
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>

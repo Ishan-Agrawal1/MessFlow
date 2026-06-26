@@ -79,6 +79,22 @@ class StudentDueRepository {
   }
 
   /**
+   * Get the latest pending or overdue due for a student (any fee cycle).
+   * This ensures students see outstanding dues even if the month has changed.
+   * @param {string} studentId
+   * @returns {Promise<Object|null>}
+   */
+  async findLatestPendingDue(studentId) {
+    return StudentDue.findOne({
+      student: studentId,
+      status: { $in: [DUE_STATUS.PENDING, DUE_STATUS.OVERDUE] },
+    })
+      .populate('feeCycle')
+      .sort({ createdAt: -1 })
+      .exec();
+  }
+
+  /**
    * Update a due record.
    * @param {string} id
    * @param {Object} updateData

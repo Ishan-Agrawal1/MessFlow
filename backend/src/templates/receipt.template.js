@@ -28,7 +28,7 @@ export const receiptTemplate = ({
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment Receipt</title>
+  <title>Payment Receipt - Madhav Namkeen</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f4f6f9; padding: 40px 0;">
@@ -105,7 +105,7 @@ export const receiptTemplate = ({
                 <tr>
                   <td align="center">
                     <span style="display: inline-block; background-color: #e8f5e9; color: #2e7d32; padding: 8px 24px; border-radius: 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;">
-                      ✅ PAYMENT VERIFIED &amp; CONFIRMED
+                      Payment Verified & Confirmed
                     </span>
                   </td>
                 </tr>
@@ -113,7 +113,7 @@ export const receiptTemplate = ({
 
               <p style="color: #555555; font-size: 14px; line-height: 1.6; margin: 0;">
                 Kindly retain this email for your records. If you have any queries regarding this transaction,
-                please contact the mess administration with your receipt number.
+                please contact the Madhav Namkeen Mess Services team with your receipt number.
               </p>
             </td>
           </tr>
@@ -122,8 +122,9 @@ export const receiptTemplate = ({
           <tr>
             <td style="background-color: #f8f9fa; padding: 24px 40px; text-align: center; border-top: 1px solid #e8eaed;">
               <p style="color: #999999; font-size: 12px; line-height: 1.6; margin: 0;">
-                This is a system-generated receipt from the Mess Management System.<br />
-                No signature is required. Please do not reply to this email.
+                Madhav Namkeen Mess Services<br />
+                For support, please contact us at madhavnamkeen.business@gmail.com<br />
+                This is a system-generated receipt. No signature is required. Please do not reply to this email.
               </p>
             </td>
           </tr>

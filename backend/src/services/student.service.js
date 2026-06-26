@@ -19,16 +19,25 @@ class StudentService {
       throw new AppError('Student not found', 404);
     }
 
-    // Get current month's fee cycle (batch-specific or general)
-    const currentCycle = await feeCycleRepository.findCurrentCycleForBatch(student.batch);
-
+    // Strategy: always check for any pending/overdue due first so newly
+    // generated dues are immediately visible regardless of fee-cycle month.
     let currentDue = null;
     let paymentStatus = null;
 
-    if (currentCycle) {
-      currentDue = await studentDueRepository.findCurrentDue(userId, currentCycle._id);
-      paymentStatus = currentDue ? currentDue.status : 'NO_DUE';
+    // 1. Check for any pending/overdue due (most important — this is what the
+    //    student needs to act on).
+    currentDue = await studentDueRepository.findLatestPendingDue(userId);
+
+    // 2. If no pending due, check the current month's cycle for a PAID due
+    //    so we can still show the "Paid" status badge.
+    if (!currentDue) {
+      const currentCycle = await feeCycleRepository.findCurrentCycleForBatch(student.batch);
+      if (currentCycle) {
+        currentDue = await studentDueRepository.findCurrentDue(userId, currentCycle._id);
+      }
     }
+
+    paymentStatus = currentDue ? currentDue.status : 'NO_DUE';
 
     // Get recent payments (last 5)
     const { payments: recentPayments } = await paymentRepository.findByStudent(userId, 1, 5);

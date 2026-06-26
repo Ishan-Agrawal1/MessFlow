@@ -53,7 +53,7 @@ export default function RegisterStudent() {
     <div className="space-y-6 max-w-2xl mx-auto">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-md shadow-indigo-500/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-sky-500 shadow-md shadow-blue-500/20">
             <UserPlus className="h-5 w-5 text-white" />
           </div>
           Register Student
@@ -103,7 +103,7 @@ export default function RegisterStudent() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-lg shadow-indigo-500/25"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg shadow-blue-500/25"
               >
                 {isLoading ? 'Registering...' : 'Register Student'}
               </Button>
