@@ -60,6 +60,10 @@ app.get('/', (_req, res) => {
   res.status(200).json({ status: 'ok', message: 'MessFlow API is running' });
 });
 
+// ─── Ignore Favicon ─────────────────────────────────────────
+app.get('/favicon.ico', (_req, res) => res.status(204).end());
+
+
 // ─── API Routes ─────────────────────────────────────────────
 app.use('/api', routes);
 
