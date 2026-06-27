@@ -32,6 +32,12 @@ const config = {
     from: process.env.EMAIL_FROM,
   },
 
+  google: {
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+  },
+
   cookieDomain: process.env.COOKIE_DOMAIN || 'localhost',
 
   clientUrl: process.env.CLIENT_URL || process.env.CORS_ORIGIN || 'http://localhost:5173',
@@ -53,12 +59,23 @@ for (const key of requiredVars) {
   }
 }
 
-// Warn (don't crash) if SMTP is not fully configured
-const smtpFields = { host: 'SMTP_HOST', user: 'SMTP_USER', pass: 'SMTP_PASS', from: 'EMAIL_FROM' };
-for (const [prop, envName] of Object.entries(smtpFields)) {
-  if (!config.smtp[prop]) {
-    console.warn(`⚠️  Missing SMTP env var: ${envName} — email delivery will be disabled`);
-  }
+// Warn (don't crash) if email is not fully configured
+const hasOAuth2 = !!(config.google.clientId && config.google.clientSecret && config.google.refreshToken);
+const hasSmtpPass = !!(config.smtp.host && config.smtp.user && config.smtp.pass);
+
+if (!hasOAuth2 && !hasSmtpPass) {
+  console.warn('⚠️  Neither Google OAuth2 nor SMTP credentials are configured — email delivery will be disabled');
+} else if (hasOAuth2) {
+  console.log('📧 Email mode: Gmail OAuth2');
+} else {
+  console.log('📧 Email mode: SMTP (password)');
+}
+
+if (!config.smtp.user) {
+  console.warn('⚠️  Missing SMTP_USER — needed as the sender email address');
+}
+if (!config.smtp.from) {
+  console.warn('⚠️  Missing EMAIL_FROM — will fall back to SMTP_USER as sender');
 }
 
 export default config;

@@ -13,6 +13,7 @@ const Login = lazy(() => import('@/pages/auth/Login'));
 const AdminLogin = lazy(() => import('@/pages/auth/AdminLogin'));
 
 // Public Pages
+const Home = lazy(() => import('@/pages/public/Home'));
 const ContactUs = lazy(() => import('@/pages/public/ContactUs'));
 const AboutUs = lazy(() => import('@/pages/public/AboutUs'));
 const PrivacyPolicy = lazy(() => import('@/pages/public/PrivacyPolicy'));
@@ -43,12 +44,12 @@ export function AppRoutes() {
   return (
     <Suspense fallback={<SuspenseLoader />}>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* Public Routes */}
+        {/* Public Routes (accessible without login) */}
         <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -83,7 +84,7 @@ export function AppRoutes() {
         </Route>
 
         {/* 404 */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
   );
