@@ -112,8 +112,8 @@ export default function StudentDashboard() {
                 {activeNotices.map((notice) => (
                   <div key={notice._id} className="border-l-4 border-amber-400 bg-amber-50/50 rounded-r-lg pl-4 pr-3 py-3">
                     <h4 className="font-semibold text-sm">{notice.title}</h4>
-                    <p className="text-sm text-muted-foreground mt-1 whitespace-pre-wrap">{notice.description}</p>
-                    <span className="text-xs text-muted-foreground block mt-2">
+                    <p className="text-sm text-foreground mt-1 whitespace-pre-wrap">{notice.description}</p>
+                    <span className="text-xs text-foreground block mt-2">
                       {format(new Date(notice.createdAt), 'MMM dd, yyyy')}
                     </span>
                   </div>
