@@ -53,4 +53,12 @@ for (const key of requiredVars) {
   }
 }
 
+// Warn (don't crash) if SMTP is not fully configured
+const smtpFields = { host: 'SMTP_HOST', user: 'SMTP_USER', pass: 'SMTP_PASS', from: 'EMAIL_FROM' };
+for (const [prop, envName] of Object.entries(smtpFields)) {
+  if (!config.smtp[prop]) {
+    console.warn(`⚠️  Missing SMTP env var: ${envName} — email delivery will be disabled`);
+  }
+}
+
 export default config;
