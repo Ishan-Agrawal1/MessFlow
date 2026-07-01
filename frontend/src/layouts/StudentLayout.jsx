@@ -1,19 +1,21 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { Home, History, CreditCard, User, LogOut, Bell, Key } from 'lucide-react';
-import { useAuthStore } from '@/store/authStore';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { logout } from '@/store/authSlice';
 import { authApi } from '@/api/authApi';
 import { toast } from 'sonner';
 import GlobalFooter from '@/components/common/GlobalFooter';
 import logo from '@/assets/logo.png';
 
 export default function StudentLayout() {
-  const { user, logout } = useAuthStore();
+  const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await authApi.logout();
-      logout();
+      dispatch(logout());
       toast.success('Logged out successfully');
       navigate('/login');
     } catch (error) {

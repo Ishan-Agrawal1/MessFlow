@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAuthStore } from '@/store/authStore';
+import { useAppSelector } from '@/store/hooks';
 import { studentApi } from '@/api/studentApi';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -20,7 +20,7 @@ const passwordSchema = z.object({
 });
 
 export default function ChangePassword() {
-  const { user } = useAuthStore();
+  const user = useAppSelector((state) => state.auth.user);
   const {
     register,
     handleSubmit,

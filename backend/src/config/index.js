@@ -24,23 +24,14 @@ const config = {
     keySecret: process.env.RAZORPAY_KEY_SECRET,
   },
 
-  smtp: {
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT, 10) || 587,
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-    from: process.env.EMAIL_FROM,
-  },
-
-  google: {
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+  resend: {
+    apiKey: process.env.RESEND_API_KEY,
+    fromEmail: process.env.EMAIL_FROM || 'Madhav Namkeen Mess Services <onboarding@resend.dev>',
   },
 
   cookieDomain: process.env.COOKIE_DOMAIN || 'localhost',
 
-  clientUrl: process.env.CLIENT_URL || process.env.CORS_ORIGIN || 'http://localhost:5173',
+  clientUrl: process.env.CLIENT_URL || process.env.CORS_ORIGIN || 'https://www.madhavnamkeen.in',
 };
 
 /**
@@ -60,22 +51,14 @@ for (const key of requiredVars) {
 }
 
 // Warn (don't crash) if email is not fully configured
-const hasOAuth2 = !!(config.google.clientId && config.google.clientSecret && config.google.refreshToken);
-const hasSmtpPass = !!(config.smtp.host && config.smtp.user && config.smtp.pass);
-
-if (!hasOAuth2 && !hasSmtpPass) {
-  console.warn('⚠️  Neither Google OAuth2 nor SMTP credentials are configured — email delivery will be disabled');
-} else if (hasOAuth2) {
-  console.log('📧 Email mode: Gmail OAuth2');
+if (!config.resend.apiKey) {
+  console.warn('⚠️  RESEND_API_KEY is not configured — email delivery will be disabled');
 } else {
-  console.log('📧 Email mode: SMTP (password)');
+  console.log('📧 Email mode: Resend API');
 }
 
-if (!config.smtp.user) {
-  console.warn('⚠️  Missing SMTP_USER — needed as the sender email address');
-}
-if (!config.smtp.from) {
-  console.warn('⚠️  Missing EMAIL_FROM — will fall back to SMTP_USER as sender');
+if (!config.resend.fromEmail) {
+  console.warn('⚠️  Missing EMAIL_FROM — will fall back to Resend default sender');
 }
 
 export default config;

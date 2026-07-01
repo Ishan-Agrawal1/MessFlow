@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { dashboardApi } from '@/api/dashboardApi';
 import { paymentApi } from '@/api/paymentApi';
-import { useAuthStore } from '@/store/authStore';
+import { useAppSelector } from '@/store/hooks';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Loader } from '@/components/common/Loader';
@@ -29,7 +29,7 @@ const loadRazorpayScript = () => {
 };
 
 export default function PayDues() {
-  const { user } = useAuthStore();
+  const user = useAppSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
 

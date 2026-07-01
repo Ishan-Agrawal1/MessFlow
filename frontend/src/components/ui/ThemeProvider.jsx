@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useThemeStore } from '@/store/themeStore';
+import { useAppSelector } from '@/store/hooks';
 
 export function ThemeProvider({ children }) {
-  const { theme } = useThemeStore();
+  const theme = useAppSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -12,3 +12,4 @@ export function ThemeProvider({ children }) {
 
   return <>{children}</>;
 }
+

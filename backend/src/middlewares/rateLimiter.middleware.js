@@ -43,3 +43,18 @@ export const paymentLimiter = rateLimit({
     message: 'Too many payment requests. Please try again later.',
   },
 });
+
+/**
+ * Contact form rate limiter — 5 requests per 15 minutes per IP.
+ * Strict limit to prevent spam since this is a public endpoint that triggers emails.
+ */
+export const contactLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many contact form submissions. Please try again later.',
+  },
+});

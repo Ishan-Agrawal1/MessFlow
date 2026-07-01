@@ -4,7 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { authApi } from '@/api/authApi';
-import { useAuthStore } from '@/store/authStore';
+import { useAppDispatch } from '@/store/hooks';
+import { setAuth, logout } from '@/store/authSlice';
 import { InputField } from '@/components/forms/InputField';
 import { PasswordField } from '@/components/forms/PasswordField';
 import { Button } from '@/components/ui/Button';
@@ -21,7 +22,7 @@ const adminLoginSchema = z.object({
 export default function AdminLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { setAuth, logout } = useAuthStore();
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -39,11 +40,11 @@ export default function AdminLogin() {
         if (response.data.user.role !== 'admin') {
           // If a student tries to log in through admin portal, deny them
           toast.error('Access denied. Admin privileges required.');
-          logout();
+          dispatch(logout());
           return;
         }
 
-        setAuth(response.data.user);
+        dispatch(setAuth(response.data.user));
         toast.success(response.message || 'Admin login successful!');
         navigate('/admin/dashboard');
       }

@@ -283,7 +283,7 @@ class AdminService {
       // Fire and forget — don't block the API response
       emailService
         .sendBulkDueCreatedEmails(
-          activeStudents.map((s) => ({ email: s.email, name: s.name })),
+          activeStudents.map((s) => ({ email: s.email, name: s.name, studentId: s.studentId })),
           {
             monthName,
             year: feeCycle.year,

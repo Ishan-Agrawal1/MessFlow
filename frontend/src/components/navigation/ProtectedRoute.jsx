@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuthStore } from '@/store/authStore';
+import { useAppSelector } from '@/store/hooks';
 import { Loader } from '@/components/common/Loader';
 
 export const ProtectedRoute = ({ allowedRoles }) => {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
 
   // In a real app, you might want a global loading state while checking auth on mount
   if (isAuthenticated === undefined) {
@@ -21,3 +21,4 @@ export const ProtectedRoute = ({ allowedRoles }) => {
 
   return <Outlet />;
 };
+

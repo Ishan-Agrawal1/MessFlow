@@ -1,31 +1,33 @@
 import { useEffect } from 'react'
 import { AppRoutes } from './routes'
-import { useAuthStore } from './store/authStore'
+import { useAppSelector, useAppDispatch } from './store/hooks'
+import { setAuth, logout } from './store/authSlice'
 import { authApi } from './api/authApi'
 import { Loader } from './components/common/Loader'
 
 function App() {
-  const { setAuth, logout, isAuthenticated } = useAuthStore()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const response = await authApi.getMe()
         if (response.success && response.data?.user) {
-          setAuth(response.data.user)
+          dispatch(setAuth(response.data.user))
         } else {
-          logout()
+          dispatch(logout())
         }
       } catch (error) {
-        logout()
+        dispatch(logout())
       }
     }
 
     checkAuth()
-  }, [setAuth, logout])
+  }, [dispatch])
 
   // We let ProtectedRoute handle the redirect if not authenticated during navigation
   return <AppRoutes />
 }
 
 export default App
+

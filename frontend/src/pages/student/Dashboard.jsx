@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { dashboardApi } from '@/api/dashboardApi';
-import { useAuthStore } from '@/store/authStore';
+import { useAppSelector } from '@/store/hooks';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Loader } from '@/components/common/Loader';
@@ -15,7 +15,7 @@ const MONTH_NAMES = [
 ];
 
 export default function StudentDashboard() {
-  const { user } = useAuthStore();
+  const user = useAppSelector((state) => state.auth.user);
 
   const { data: response, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['studentDashboard'],

@@ -19,6 +19,7 @@ export const dueCreatedTemplate = ({
   amount,
   dueDate,
   portalUrl,
+  studentId,
 }) => {
   return `
 <!DOCTYPE html>
@@ -52,7 +53,7 @@ export const dueCreatedTemplate = ({
               <p style="color: #555555; font-size: 15px; line-height: 1.8; margin: 0 0 24px;">
                 This is to inform you that the mess fee for the month of
                 <strong>${monthName} ${year}</strong> has been generated. Kindly ensure that the
-                payment is completed before the due date to avoid any inconvenience.
+                payment is completed before the provided due date to avoid any inconvenience.
               </p>
 
               <!-- Due Details Card -->
@@ -83,6 +84,7 @@ export const dueCreatedTemplate = ({
               <p style="color: #555555; font-size: 15px; line-height: 1.8; margin: 0 0 24px;">
                 You can complete your payment online by visiting the Mess Portal. Click the button
                 below to log in and pay securely via Razorpay.
+                You can login using your Roll Number and default password is setted as <strong>${studentId}@messpassword</strong>. 
               </p>
 
               <!-- CTA Button -->

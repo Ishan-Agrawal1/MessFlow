@@ -4,7 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { authApi } from '@/api/authApi';
-import { useAuthStore } from '@/store/authStore';
+import { useAppDispatch } from '@/store/hooks';
+import { setAuth } from '@/store/authSlice';
 import { InputField } from '@/components/forms/InputField';
 import { PasswordField } from '@/components/forms/PasswordField';
 import { Button } from '@/components/ui/Button';
@@ -20,7 +21,7 @@ const loginSchema = z.object({
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { setAuth } = useAuthStore();
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -35,9 +36,9 @@ export default function Login() {
     try {
       const response = await authApi.login(data);
       if (response.success && response.data?.user) {
-        setAuth(response.data.user);
+        dispatch(setAuth(response.data.user));
         toast.success(response.message || 'Login successful!');
-        
+
         // Redirect based on role
         if (response.data.user.role === 'admin') {
           navigate('/admin/dashboard');
@@ -76,7 +77,7 @@ export default function Login() {
             <InputField
               label="Student ID or Email"
               type="text"
-              placeholder="e.g. STU123 or admin@mess.com"
+              placeholder="e.g. STU123"
               {...register('identifier')}
               error={errors.identifier}
             />
@@ -90,9 +91,9 @@ export default function Login() {
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
-          
+
           <div className="mt-6 text-center text-sm text-muted-foreground">
-            Default student password is <br/>
+            Default student password is <br />
             <span className="font-mono bg-muted p-1.5 rounded-md text-xs mt-1 inline-block">{'[studentId]@messpassword'}</span>
           </div>
         </CardContent>

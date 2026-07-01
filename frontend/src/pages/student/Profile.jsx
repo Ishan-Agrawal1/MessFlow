@@ -1,10 +1,10 @@
-import { useAuthStore } from '@/store/authStore';
+import { useAppSelector } from '@/store/hooks';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Mail, Hash, BookOpen, Calendar, Shield } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default function StudentProfile() {
-  const { user } = useAuthStore();
+  const user = useAppSelector((state) => state.auth.user);
 
   if (!user) return null;
 

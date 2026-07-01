@@ -4,6 +4,7 @@ import studentRoutes from './student.routes.js';
 import paymentRoutes from './payment.routes.js';
 import noticeRoutes from './notice.routes.js';
 import adminRoutes from './admin.routes.js';
+import contactRoutes from './contact.routes.js';
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use('/student', studentRoutes);
 router.use('/payments', paymentRoutes);
 router.use('/notices', noticeRoutes);
 router.use('/admin', adminRoutes);
+router.use('/contact', contactRoutes);
 
 export default router;
