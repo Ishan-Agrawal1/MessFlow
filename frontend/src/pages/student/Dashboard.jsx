@@ -60,9 +60,13 @@ export default function StudentDashboard() {
               <span className="flex items-center text-sm font-semibold text-red-600 bg-red-50 px-3 py-1.5 rounded-full">
                 <AlertCircle className="w-4 h-4 mr-1" /> Overdue
               </span>
-            ) : (
+            ) : paymentStatus === 'PENDING' ? (
               <span className="flex items-center text-sm font-semibold text-amber-600 bg-amber-50 px-3 py-1.5 rounded-full">
                 <CalendarDays className="w-4 h-4 mr-1" /> Pending
+              </span>
+            ) : (
+              <span className="flex items-center text-sm font-semibold text-slate-600 bg-slate-50 px-3 py-1.5 rounded-full">
+                <CheckCircle2 className="w-4 h-4 mr-1" /> No Dues
               </span>
             )}
           </CardTitle>
@@ -73,7 +77,7 @@ export default function StudentDashboard() {
               <div className="flex items-baseline gap-2">
                 <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">₹{currentDue.amount}</span>
                 <span className="text-sm text-muted-foreground font-medium">
-                  {MONTH_NAMES[(currentDue.feeCycle.month || 1) - 1]} {currentDue.feeCycle.year} — due by {format(new Date(currentDue.feeCycle.dueDate), 'MMM dd, yyyy')}
+                  {currentDue.feeCycle ? MONTH_NAMES[(currentDue.feeCycle.month || 1) - 1] : 'Unknown'} {currentDue.feeCycle?.year} — due by {currentDue.feeCycle?.dueDate ? format(new Date(currentDue.feeCycle.dueDate), 'MMM dd, yyyy') : 'N/A'}
                 </span>
               </div>
 
@@ -148,7 +152,7 @@ export default function StudentDashboard() {
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-emerald-600">+₹{payment.amount}</p>
-                      <p className="text-xs text-muted-foreground capitalize">{payment.status.toLowerCase()}</p>
+                      <p className="text-xs text-muted-foreground capitalize">{payment.status?.toLowerCase() || 'unknown'}</p>
                     </div>
                   </div>
                 ))}

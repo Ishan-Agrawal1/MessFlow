@@ -65,7 +65,7 @@ export default function PayDues() {
         amount: amount,
         currency: currency,
         name: 'Madhav Namkeen',
-        description: `Fee Payment for ${MONTH_NAMES[(response.data.currentDue.feeCycle.month || 1) - 1]} ${response.data.currentDue.feeCycle.year}`,
+        description: `Fee Payment for ${response.data.currentDue.feeCycle ? MONTH_NAMES[(response.data.currentDue.feeCycle.month || 1) - 1] : 'Unknown'} ${response.data.currentDue.feeCycle?.year || ''}`,
         order_id: orderId,
         handler: async function (response) {
           // 4. Verify payment on backend
@@ -142,7 +142,7 @@ export default function PayDues() {
         <CardHeader className="bg-muted/30 border-b pb-6">
           <CardTitle className="text-xl">Payment Details</CardTitle>
           <CardDescription>
-            Fee Cycle: <span className="font-semibold text-foreground">{MONTH_NAMES[(currentDue.feeCycle.month || 1) - 1]} {currentDue.feeCycle.year}</span>
+            Fee Cycle: <span className="font-semibold text-foreground">{currentDue.feeCycle ? MONTH_NAMES[(currentDue.feeCycle.month || 1) - 1] : 'Unknown'} {currentDue.feeCycle?.year || ''}</span>
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-6 space-y-4">
